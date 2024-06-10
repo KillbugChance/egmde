@@ -91,12 +91,15 @@ egmde::FullscreenClient::Output::~Output()
         wl_output_destroy(output);
 }
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wmissing-field-initializers"
 wl_output_listener const egmde::FullscreenClient::Output::output_listener = {
     &geometry,
     &mode,
     &done,
     &scale,
 };
+#pragma GCC diagnostic pop
 
 egmde::FullscreenClient::SurfaceInfo::SurfaceInfo(Output const* output) :
     output{output}
@@ -561,6 +564,8 @@ void egmde::FullscreenClient::touch_orientation(
 
 void egmde::FullscreenClient::seat_capabilities(wl_seat* seat, uint32_t capabilities)
 {
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wmissing-field-initializers"
     if (capabilities & WL_SEAT_CAPABILITY_POINTER) {
         static wl_pointer_listener pointer_listener =
             {
@@ -609,6 +614,7 @@ void egmde::FullscreenClient::seat_capabilities(wl_seat* seat, uint32_t capabili
 
         wl_touch_add_listener(wl_seat_get_touch(seat), &touch_listener, this);
     }
+#pragma GCC diagnostic pop
 }
 
 void egmde::FullscreenClient::seat_name(wl_seat* /*seat*/, const char */*name*/)
