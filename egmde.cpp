@@ -26,10 +26,12 @@
 #include <miral/external_client.h>
 #include <miral/keymap.h>
 #include <miral/set_window_management_policy.h>
+#include <miral/toolkit_event.h>
 
 #include <linux/input.h>
 
 using namespace miral;
+using namespace miral::toolkit;
 
 int main(int argc, char const* argv[])
 {
@@ -65,7 +67,7 @@ int main(int argc, char const* argv[])
                 return true;
 
             case KEY_T:
-                external_client_launcher.launch({"weston-terminal"});
+                external_client_launcher.launch("weston-terminal");
                 return true;
 
             default:
